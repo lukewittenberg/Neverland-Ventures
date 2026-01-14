@@ -62,6 +62,8 @@
             margin-left: auto;
             margin-right: auto;
             display: block;
+            transform-origin: center top;
+            transition: transform 0.1s ease-out;
         }
 
         .feather-top {
@@ -111,6 +113,17 @@
         }
 
     </style>
+    <script>
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            const rotation = scrollPosition * 0.2; // Adjust multiplier for sensitivity
+            const feathers = document.querySelectorAll('.feather-logo');
+
+            feathers.forEach(function(feather) {
+                feather.style.transform = 'rotate(' + rotation + 'deg)';
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
