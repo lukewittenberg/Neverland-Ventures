@@ -137,6 +137,7 @@
 
     </style>
     <script>
+        let scrollTimeout;
         window.addEventListener('scroll', function() {
             const scrollPosition = window.scrollY;
             const rotation = scrollPosition * 1.5; // Adjust multiplier for sensitivity
@@ -145,6 +146,27 @@
             feathers.forEach(function(feather) {
                 feather.style.transform = 'rotateY(' + rotation + 'deg)';
             });
+
+            // Clear any existing timeout
+            clearTimeout(scrollTimeout);
+
+            // Set a timeout to snap to nearest aligned position when scrolling stops
+            scrollTimeout = setTimeout(function() {
+                const currentRotation = scrollPosition * 1.5;
+                // Find the nearest multiple of 360 (aligned position)
+                const nearestAligned = Math.round(currentRotation / 360) * 360;
+
+                feathers.forEach(function(feather) {
+                    // Add a smooth transition for the snap
+                    feather.style.transition = 'transform 0.5s ease-out';
+                    feather.style.transform = 'rotateY(' + nearestAligned + 'deg)';
+
+                    // Reset to quick transition for next scroll
+                    setTimeout(function() {
+                        feather.style.transition = 'transform 0.1s ease-out';
+                    }, 500);
+                });
+            }, 150); // Wait 150ms after scrolling stops
         });
     </script>
 </head>
