@@ -62,6 +62,22 @@
             margin-left: auto;
             margin-right: auto;
             display: block;
+            animation: featherDistort 4s ease-in-out infinite;
+        }
+
+        @keyframes featherDistort {
+            0%, 100% {
+                transform: scale(1, 1) skewX(0deg);
+            }
+            25% {
+                transform: scale(1.02, 0.98) skewX(0.5deg);
+            }
+            50% {
+                transform: scale(0.98, 1.02) skewX(-0.5deg);
+            }
+            75% {
+                transform: scale(1.01, 0.99) skewX(0.3deg);
+            }
         }
 
         .feather-top {
