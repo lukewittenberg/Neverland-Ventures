@@ -62,7 +62,7 @@
             margin-left: auto;
             margin-right: auto;
             display: block;
-            transform-origin: center top;
+            transform-style: preserve-3d;
             transition: transform 0.1s ease-out;
         }
 
@@ -116,11 +116,11 @@
     <script>
         window.addEventListener('scroll', function() {
             const scrollPosition = window.scrollY;
-            const rotation = scrollPosition * 0.2; // Adjust multiplier for sensitivity
+            const rotation = scrollPosition * 0.5; // Adjust multiplier for sensitivity
             const feathers = document.querySelectorAll('.feather-logo');
 
             feathers.forEach(function(feather) {
-                feather.style.transform = 'rotate(' + rotation + 'deg)';
+                feather.style.transform = 'rotateY(' + rotation + 'deg)';
             });
         });
     </script>
