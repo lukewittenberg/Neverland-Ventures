@@ -71,7 +71,7 @@
         }
 
         .footer-logo {
-            width: 300px;
+            width: 240px;
             height: auto;
             margin-left: auto;
             margin-right: auto;
@@ -110,7 +110,7 @@
 
         .invest-button a {
             display: inline-block;
-            background-color: #228B22;
+            background-color: #FF6B00;
             color: #ffffff;
             text-decoration: none;
             padding: 14px 32px;
@@ -142,6 +142,276 @@
             opacity: 0.8;
         }
 
+        /* Robin Hood Animation */
+        .animation-scene {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            margin-top: 2em;
+            overflow: hidden;
+            background: transparent;
+        }
+
+        .robin-hood {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+        }
+
+        /* Stick figure body */
+        .rh-head {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00FF00;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 60px;
+            left: 15px;
+            box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00;
+        }
+
+        .rh-body {
+            width: 2px;
+            height: 40px;
+            background: #00FF00;
+            position: absolute;
+            bottom: 20px;
+            left: 26px;
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        .rh-arm-left {
+            width: 25px;
+            height: 2px;
+            background: #00FF00;
+            position: absolute;
+            bottom: 45px;
+            left: 10px;
+            transform: rotate(-30deg);
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        .rh-arm-right {
+            width: 25px;
+            height: 2px;
+            background: #00FF00;
+            position: absolute;
+            bottom: 45px;
+            left: 28px;
+            transform: rotate(30deg);
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        .rh-leg-left {
+            width: 2px;
+            height: 20px;
+            background: #00FF00;
+            position: absolute;
+            bottom: 0;
+            left: 18px;
+            transform: rotate(-15deg);
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        .rh-leg-right {
+            width: 2px;
+            height: 20px;
+            background: #00FF00;
+            position: absolute;
+            bottom: 0;
+            left: 32px;
+            transform: rotate(15deg);
+            box-shadow: 0 0 10px #00FF00;
+        }
+
+        /* Hat */
+        .rh-hat {
+            width: 24px;
+            height: 12px;
+            background: #FF00FF;
+            position: absolute;
+            bottom: 78px;
+            left: 13px;
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 0 10px #FF00FF;
+        }
+
+        .rh-feather {
+            width: 2px;
+            height: 15px;
+            background: #00FFFF;
+            position: absolute;
+            bottom: 88px;
+            left: 28px;
+            transform: rotate(20deg);
+            box-shadow: 0 0 10px #00FFFF;
+        }
+
+        /* Bow */
+        .rh-bow {
+            width: 30px;
+            height: 35px;
+            border: 2px solid #FFFF00;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 35px;
+            left: -5px;
+            border-right: none;
+            box-shadow: 0 0 10px #FFFF00;
+        }
+
+        /* Birds */
+        .bird {
+            position: absolute;
+            animation: fly-bird 8s linear infinite;
+        }
+
+        .bird-1 {
+            top: 30px;
+            animation-delay: 0s;
+        }
+
+        .bird-2 {
+            top: 60px;
+            animation-delay: 2.5s;
+        }
+
+        .bird-3 {
+            top: 90px;
+            animation-delay: 5s;
+        }
+
+        .bird-wing-left {
+            width: 15px;
+            height: 2px;
+            background: #FF6B00;
+            position: absolute;
+            transform: rotate(-30deg);
+            box-shadow: 0 0 8px #FF6B00;
+            animation: flap 0.3s ease-in-out infinite;
+        }
+
+        .bird-wing-right {
+            width: 15px;
+            height: 2px;
+            background: #FF6B00;
+            position: absolute;
+            left: 8px;
+            transform: rotate(30deg);
+            box-shadow: 0 0 8px #FF6B00;
+            animation: flap 0.3s ease-in-out infinite alternate;
+        }
+
+        .bird-body {
+            width: 8px;
+            height: 8px;
+            background: #FF6B00;
+            border-radius: 50%;
+            position: absolute;
+            left: 8px;
+            box-shadow: 0 0 10px #FF6B00;
+        }
+
+        /* Arrows */
+        .arrow {
+            position: absolute;
+            animation: shoot-arrow 2s linear infinite;
+            display: none;
+        }
+
+        .arrow-1 {
+            animation-delay: 1.5s;
+            display: block;
+        }
+
+        .arrow-2 {
+            animation-delay: 4s;
+            display: block;
+        }
+
+        .arrow-3 {
+            animation-delay: 6.5s;
+            display: block;
+        }
+
+        .arrow-shaft {
+            width: 20px;
+            height: 2px;
+            background: #FFFF00;
+            box-shadow: 0 0 8px #FFFF00;
+        }
+
+        .arrow-tip {
+            width: 0;
+            height: 0;
+            border-left: 6px solid #FFFF00;
+            border-top: 3px solid transparent;
+            border-bottom: 3px solid transparent;
+            position: absolute;
+            right: -6px;
+            top: -2px;
+            filter: drop-shadow(0 0 8px #FFFF00);
+        }
+
+        @keyframes fly-bird {
+            0% {
+                left: -50px;
+                transform: translateY(0) rotate(0deg);
+            }
+            18% {
+                transform: translateY(0) rotate(0deg);
+            }
+            19% {
+                transform: translateY(10px) rotate(-45deg);
+            }
+            20% {
+                transform: translateY(50px) rotate(-90deg);
+            }
+            25% {
+                transform: translateY(100px) rotate(-90deg);
+                opacity: 1;
+            }
+            30% {
+                transform: translateY(150px) rotate(-90deg);
+                opacity: 0;
+            }
+            100% {
+                left: -50px;
+                transform: translateY(150px) rotate(-90deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shoot-arrow {
+            0% {
+                left: 80px;
+                bottom: 55px;
+                opacity: 1;
+            }
+            18% {
+                opacity: 1;
+            }
+            20% {
+                left: calc(100% - 50px);
+                bottom: 55px;
+                opacity: 0;
+            }
+            100% {
+                left: calc(100% - 50px);
+                bottom: 55px;
+                opacity: 0;
+            }
+        }
+
+        @keyframes flap {
+            0% {
+                transform: rotate(-30deg);
+            }
+            100% {
+                transform: rotate(-50deg);
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 40px 20px;
@@ -162,7 +432,7 @@
             }
 
             .footer-logo {
-                width: 240px;
+                width: 192px;
             }
 
             .invest-section {
@@ -256,6 +526,55 @@
                 </div>
             </div>
             <img src="full logo white.png" alt="Neverland Ventures" class="footer-logo">
+
+            <!-- Robin Hood Animation -->
+            <div class="animation-scene">
+                <div class="robin-hood">
+                    <!-- Stick figure -->
+                    <div class="rh-head"></div>
+                    <div class="rh-body"></div>
+                    <div class="rh-arm-left"></div>
+                    <div class="rh-arm-right"></div>
+                    <div class="rh-leg-left"></div>
+                    <div class="rh-leg-right"></div>
+                    <!-- Hat with feather -->
+                    <div class="rh-hat"></div>
+                    <div class="rh-feather"></div>
+                    <!-- Bow -->
+                    <div class="rh-bow"></div>
+                </div>
+
+                <!-- Arrows -->
+                <div class="arrow arrow-1">
+                    <div class="arrow-shaft"></div>
+                    <div class="arrow-tip"></div>
+                </div>
+                <div class="arrow arrow-2">
+                    <div class="arrow-shaft"></div>
+                    <div class="arrow-tip"></div>
+                </div>
+                <div class="arrow arrow-3">
+                    <div class="arrow-shaft"></div>
+                    <div class="arrow-tip"></div>
+                </div>
+
+                <!-- Flying birds -->
+                <div class="bird bird-1">
+                    <div class="bird-wing-left"></div>
+                    <div class="bird-body"></div>
+                    <div class="bird-wing-right"></div>
+                </div>
+                <div class="bird bird-2">
+                    <div class="bird-wing-left"></div>
+                    <div class="bird-body"></div>
+                    <div class="bird-wing-right"></div>
+                </div>
+                <div class="bird bird-3">
+                    <div class="bird-wing-left"></div>
+                    <div class="bird-body"></div>
+                    <div class="bird-wing-right"></div>
+                </div>
+            </div>
         </footer>
     </div>
 </body>
