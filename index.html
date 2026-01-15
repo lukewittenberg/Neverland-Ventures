@@ -81,7 +81,8 @@
         }
 
         .invest-section {
-            display: flex;
+            display: grid;
+            grid-template-columns: auto auto auto;
             align-items: center;
             justify-content: center;
             gap: 15px;
@@ -92,6 +93,7 @@
         .invest-text {
             font-size: 1.1rem;
             color: #ffffff;
+            text-align: right;
         }
 
         .invest-arrow {
@@ -110,7 +112,7 @@
 
         .invest-button a {
             display: inline-block;
-            background-color: #228B22;
+            background-color: #FF6B00;
             color: #ffffff;
             text-decoration: none;
             padding: 14px 32px;
@@ -166,8 +168,12 @@
             }
 
             .invest-section {
-                flex-direction: column;
+                grid-template-columns: auto auto auto;
                 gap: 10px;
+            }
+
+            .invest-text {
+                text-align: center;
             }
 
             .invest-arrow {
