@@ -50,23 +50,43 @@
             filter: invert(1);
         }
 
-        .back-link {
-            text-align: center;
-            margin-top: 2em;
+        /* Top-left navigation stack */
+        .nav-stack {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
         }
 
-        .back-link a {
+        .nav-stack a {
             color: #ffffff;
             text-decoration: none;
-            border-bottom: 1px solid #ffffff;
+            font-size: 1rem;
             transition: opacity 0.2s;
+            cursor: pointer;
         }
 
-        .back-link a:hover {
+        .nav-stack a:hover {
             opacity: 0.7;
         }
 
+        .nav-stack a.active {
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
+            .nav-stack {
+                top: 20px;
+                left: 20px;
+                gap: 12px;
+            }
+
+            .nav-stack a {
+                font-size: 0.9rem;
+            }
             .container {
                 padding: 40px 20px;
             }
@@ -86,6 +106,13 @@
     </style>
 </head>
 <body>
+    <!-- Top-left navigation -->
+    <nav class="nav-stack">
+        <a href="index.html">Home</a>
+        <a href="track-record.html" class="active">Track Record</a>
+        <a href="mailto:info@neverland.vc">Contact Us</a>
+    </nav>
+
     <div class="container">
         <img src="full logo white.png" alt="Neverland Ventures" class="logo">
         <h1>Investment Track Record</h1>
@@ -96,9 +123,6 @@
             <p>
                 Representative projects include 1 Hotel Nashville, The Ryder Hotel Charleston, Hotel Bella Grace Charleston, Viewline Resort Snowmass, Sheraton Denver Downtown, Embassy Suites Nashville, and Mark Lane Apartments Naples, among others.
             </p>
-        </div>
-        <div class="back-link">
-            <a href="index.html">← Back to Home</a>
         </div>
     </div>
 </body>

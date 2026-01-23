@@ -56,26 +56,6 @@
             margin-bottom: 0;
         }
 
-        .track-record-heading {
-            font-weight: bold;
-            margin-top: 2em;
-            margin-bottom: 0.5em;
-            text-align: center;
-        }
-
-        .track-record-link {
-            color: #ffffff;
-            text-decoration: none;
-            border: 2px solid #ffffff;
-            padding: 10px 20px;
-            display: inline-block;
-            transition: opacity 0.2s;
-        }
-
-        .track-record-link:hover {
-            opacity: 0.7;
-        }
-
         .feather-logo {
             width: 150px;
             height: auto;
@@ -100,68 +80,6 @@
             display: block;
         }
 
-        .invest-section {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 1.8em;
-            margin-bottom: 0.5em;
-        }
-
-        .invest-text {
-            font-size: 1.1rem;
-            color: #ffffff;
-        }
-
-        .invest-arrow {
-            font-size: 1.5rem;
-            animation: arrow-bounce 1.5s ease-in-out infinite;
-        }
-
-        @keyframes arrow-bounce {
-            0%, 100% {
-                transform: translateX(-2.5px);
-            }
-            50% {
-                transform: translateX(2.5px);
-            }
-        }
-
-        .invest-button a {
-            display: inline-block;
-            background-color: #FF6B00;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 14px 32px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 0;
-            transition: opacity 0.2s;
-            cursor: pointer;
-        }
-
-        .invest-button a:hover {
-            opacity: 0.8;
-        }
-
-        .email-button a {
-            display: inline-block;
-            background-color: #FF6B00;
-            color: #ffffff;
-            text-decoration: none;
-            padding: 14px 32px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 0;
-            transition: opacity 0.2s;
-            cursor: pointer;
-        }
-
-        .email-button a:hover {
-            opacity: 0.8;
-        }
-
         .footer-disclaimer {
             text-align: center;
             font-size: 0.75rem;
@@ -174,7 +92,43 @@
             margin-right: auto;
         }
 
+        /* Top-left navigation stack */
+        .nav-stack {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-stack a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: opacity 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-stack a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-stack a.active {
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
+            .nav-stack {
+                top: 20px;
+                left: 20px;
+                gap: 12px;
+            }
+
+            .nav-stack a {
+                font-size: 0.9rem;
+            }
             .container {
                 padding: 40px 20px;
             }
@@ -200,25 +154,6 @@
             .footer-disclaimer {
                 font-size: 0.7rem;
                 padding: 0 20px;
-            }
-
-            .invest-section {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .invest-arrow {
-                transform: rotate(90deg);
-                animation: arrow-bounce-down 1.5s ease-in-out infinite;
-            }
-
-            @keyframes arrow-bounce-down {
-                0%, 100% {
-                    transform: rotate(90deg) translateX(-2.5px);
-                }
-                50% {
-                    transform: rotate(90deg) translateX(2.5px);
-                }
             }
         }
 
@@ -258,6 +193,13 @@
     </script>
 </head>
 <body>
+    <!-- Top-left navigation -->
+    <nav class="nav-stack">
+        <a href="index.html" class="active">Home</a>
+        <a href="track-record.html">Track Record</a>
+        <a href="mailto:info@neverland.vc">Contact Us</a>
+    </nav>
+
     <div class="container">
         <header>
             <img src="Neverland Ventures (1)Artboard 4@4x.png" alt="Neverland Ventures Feather" class="feather-logo feather-top">
@@ -275,20 +217,9 @@
             <p>
                 The platform is being seeded with several flagship entertainment and hospitality projects currently underway in the southeastern U.S. and the U.K., alongside an investment in a global expeditions company. Neverland is actively pursuing additional investment opportunities.
             </p>
-
-            <p class="track-record-heading">
-                <a href="track-record.html" target="_blank" rel="noopener noreferrer" class="track-record-link">Investment Track Record</a>
-            </p>
         </main>
 
         <footer>
-            <div class="invest-section">
-                <span class="invest-text">Get In Touch</span>
-                <span class="invest-arrow">→</span>
-                <div class="email-button">
-                    <a href="mailto:info@neverland.vc">Click Here</a>
-                </div>
-            </div>
             <img src="full logo white.png" alt="Neverland Ventures" class="footer-logo">
 
             <div class="footer-disclaimer">
