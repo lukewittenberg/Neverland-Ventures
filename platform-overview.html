@@ -60,6 +60,20 @@
             margin-bottom: 1em;
         }
 
+        .content p.with-icon {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .paragraph-icon {
+            width: 20px;
+            height: 20px;
+            fill: #FF6B35;
+            flex-shrink: 0;
+            margin-top: 3px;
+        }
+
         .content ul {
             margin-bottom: 1.2em;
             margin-left: 1.2em;
@@ -327,8 +341,12 @@
             <div class="approach-section">
                 <div class="section-content">
                     <h2>INVESTMENT APPROACH</h2>
-                    <p>
-                        Our approach is rooted in creativity and unconventional thinking, executed with institutional rigor.
+                    <p class="with-icon">
+                        <svg class="paragraph-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                            <path d="M12 8l-4 4h3v4h2v-4h3z" opacity=".3"/>
+                        </svg>
+                        <span>Our approach is rooted in creativity and unconventional thinking, executed with institutional rigor.</span>
                     </p>
                     <ul>
                         <li>Above all else, we prioritize honest and transparent communication across all touchpoints with partners and investors</li>
