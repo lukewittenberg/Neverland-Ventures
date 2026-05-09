@@ -6,212 +6,81 @@
     <meta name="description" content="Neverland Ventures — A private investment platform focused on experiential real estate and operating businesses.">
     <title>Neverland Ventures</title>
     <link rel="icon" type="image/png" href="Neverland Ventures (1)Artboard 4@4x.png">
-    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
     <style>
-        :root {
-            --black: #000000;
-            --white: #ffffff;
-            --gray-mid: #666666;
-            --gray-dim: #333333;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
         }
 
-        body {
-            background: var(--black);
-            color: var(--white);
-            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
-            font-weight: 300;
-            overflow-x: hidden;
-        }
-
-        /* ── Navigation ── */
+        /* ── Icons top-right ── */
         nav {
             position: fixed;
             top: 0;
-            left: 0;
             right: 0;
             display: flex;
-            justify-content: flex-end;
             align-items: center;
-            gap: 22px;
+            gap: 20px;
             padding: 32px 44px;
-            z-index: 100;
-            /* fade nav over hero */
-            background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 100%);
+            z-index: 10;
         }
 
         .nav-icon-link {
             display: flex;
             align-items: center;
-            color: rgba(255, 255, 255, 0.55);
+            color: #e87722;
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: opacity 0.25s ease;
         }
 
         .nav-icon-link:hover {
-            color: rgba(255, 255, 255, 0.95);
+            opacity: 0.7;
         }
 
         .nav-icon-link svg {
-            width: 19px;
-            height: 19px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
 
-        /* ── Hero ── */
-        .hero {
-            position: relative;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+        /* ── Centered feather ── */
+        .feather-wrap {
+            position: fixed;
+            inset: 0;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        #three-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
-
-        /* Scroll cue — animated descending line */
-        .scroll-cue {
-            position: absolute;
-            bottom: 44px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            opacity: 0;
-            animation: cueAppear 1s 2s ease forwards;
-        }
-
-        .scroll-cue-line {
-            width: 1px;
-            height: 52px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .scroll-cue-line::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.6) 40%, rgba(255,255,255,0.6) 60%, transparent 100%);
-            animation: lineSlide 2s ease-in-out infinite;
-        }
-
-        @keyframes lineSlide {
-            0%   { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-
-        @keyframes cueAppear {
-            to { opacity: 1; }
-        }
-
-        /* ── Content section ── */
-        .content {
-            max-width: 660px;
-            margin: 0 auto;
-            padding: 140px 40px 120px;
-        }
-
-        .content p {
-            font-size: 1.05rem;
-            line-height: 1.95;
-            color: rgba(255, 255, 255, 0.78);
-            margin-bottom: 2.2em;
-            letter-spacing: 0.015em;
-        }
-
-        .content p:last-child {
-            margin-bottom: 0;
-        }
-
-        /* ── Footer ── */
-        footer {
-            border-top: 1px solid rgba(255, 255, 255, 0.07);
-            padding: 64px 40px 60px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 22px;
-        }
-
-        .footer-logo {
-            width: 130px;
+        .feather-img {
+            width: min(380px, 60vmin);
             height: auto;
-            opacity: 0.65;
-            transition: opacity 0.3s;
+            animation: spin 28s linear infinite;
+            will-change: transform;
         }
 
-        .footer-logo:hover {
-            opacity: 0.9;
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
         }
 
-        .footer-disclaimer {
-            text-align: center;
-            font-size: 0.7rem;
-            color: #444;
-            line-height: 1.7;
-            max-width: 480px;
-            letter-spacing: 0.03em;
-        }
-
-        /* ── Scroll-reveal ── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.9s ease, transform 0.9s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ── Mobile ── */
-        @media (max-width: 768px) {
+        @media (max-width: 480px) {
             nav {
                 padding: 22px 24px;
-                gap: 18px;
-            }
-
-            .content {
-                padding: 90px 26px 80px;
-            }
-
-            .content p {
-                font-size: 0.97rem;
-            }
-
-            footer {
-                padding: 50px 24px 46px;
+                gap: 16px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation: icons only, top-right -->
     <nav>
         <a href="mailto:info@neverland.vc" class="nav-icon-link" aria-label="Email Neverland Ventures">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -225,218 +94,13 @@
         </a>
     </nav>
 
-    <!-- Hero: full-screen Three.js feather -->
-    <section class="hero">
-        <canvas id="three-canvas"></canvas>
-        <div class="scroll-cue" aria-hidden="true">
-            <div class="scroll-cue-line"></div>
-        </div>
-    </section>
-
-    <!-- Content -->
-    <section class="content">
-        <p class="reveal">
-            Neverland Ventures is a private investment platform focused on experiential real estate and operating businesses.
-        </p>
-        <p class="reveal">
-            Our approach is rooted in integrity, creativity, and unconventional thinking. We partner with landowners, municipalities, and government agencies, as well as founders, operators, and brands, to bring community-first, environmentally conscious concepts to life. Our projects are structured flexibly to accommodate a range of ownership and organizational configurations, and typically involve public-private partnerships.
-        </p>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <img src="full logo white.png" alt="Neverland Ventures" class="footer-logo">
-        <div class="footer-disclaimer">
-            &copy; 2026 Neverland Ventures. All rights reserved.<br>
-            Nothing on this website constitutes an offer to sell or a solicitation to buy any securities.
-        </div>
-    </footer>
-
-    <script>
-    // ================================================================
-    //  THREE.JS — 3D FEATHER
-    // ================================================================
-    (function () {
-        'use strict';
-
-        const canvas = document.getElementById('three-canvas');
-
-        // Renderer
-        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.outputEncoding = THREE.sRGBEncoding;
-
-        // Scene + camera
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 0, 6.2);
-
-        // Lighting — three-point rig for a premium white-on-black look
-        const ambient = new THREE.AmbientLight(0xffffff, 0.45);
-        scene.add(ambient);
-
-        const keyLight = new THREE.DirectionalLight(0xffffff, 1.4);
-        keyLight.position.set(2.5, 4, 5);
-        scene.add(keyLight);
-
-        const fillLight = new THREE.DirectionalLight(0x99aaff, 0.45);
-        fillLight.position.set(-4, 0, 3);
-        scene.add(fillLight);
-
-        const rimLight = new THREE.DirectionalLight(0xffffff, 0.3);
-        rimLight.position.set(0, -5, -3);
-        scene.add(rimLight);
-
-        // ── Materials ──────────────────────────────────────────────
-        const rachisMat = new THREE.MeshStandardMaterial({
-            color: 0xffffff,
-            metalness: 0.25,
-            roughness: 0.2,
-            emissive: 0x1a1a1a,
-        });
-
-        const barbMat = new THREE.MeshStandardMaterial({
-            color: 0xffffff,
-            metalness: 0.05,
-            roughness: 0.35,
-            transparent: true,
-            opacity: 0.93,
-            side: THREE.DoubleSide,
-            emissive: 0x111111,
-        });
-
-        // ── Rachis curve ───────────────────────────────────────────
-        // A natural quill: slightly curved in X, with a subtle 3-D bow in Z
-        const rachisCtrl = [];
-        const RACHIS_SEGS = 32;
-        for (let i = 0; i <= RACHIS_SEGS; i++) {
-            const t = i / RACHIS_SEGS;
-            const y = -2.2 + t * 4.4;          // full height −2.2 → +2.2
-            const x = Math.sin(t * Math.PI) * 0.07;   // gentle S-lean
-            const z = Math.sin(t * Math.PI) * 0.10;   // bow forward slightly
-            rachisCtrl.push(new THREE.Vector3(x, y, z));
-        }
-        const rachisCurve = new THREE.CatmullRomCurve3(rachisCtrl);
-
-        const rachisGeo = new THREE.TubeGeometry(rachisCurve, 100, 0.017, 8, false);
-        const rachisMesh = new THREE.Mesh(rachisGeo, rachisMat);
-
-        // ── Barbs ──────────────────────────────────────────────────
-        const NUM_BARBS   = 44;       // pairs (each side)
-        const BARB_START  = 0.09;     // fraction along rachis where barbs begin
-        const BARB_END    = 0.91;     // fraction where barbs end (tip region)
-        const MAX_LENGTH  = 1.05;     // max barb half-width at widest point
-
-        const barbs = [];
-
-        for (let i = 0; i < NUM_BARBS; i++) {
-            const t = BARB_START + (i / (NUM_BARBS - 1)) * (BARB_END - BARB_START);
-
-            // Width silhouette — peaks around 40 % up from base, tapers to tip
-            const nt = (t - BARB_START) / (BARB_END - BARB_START);
-            const silhouette = Math.pow(Math.sin(nt * Math.PI), 0.52);
-            const barbLen = MAX_LENGTH * silhouette;
-
-            if (barbLen < 0.06) continue;
-
-            const pt      = rachisCurve.getPoint(t);
-            const tangent = rachisCurve.getTangent(t);
-
-            // Local frame: right = perpendicular to tangent in XY plane
-            const up    = new THREE.Vector3(0, 1, 0);
-            const right = new THREE.Vector3().crossVectors(up, tangent).normalize();
-
-            const baseW = barbLen * 0.062;   // barb width at rachis
-            const droop = 0.13;             // radians below horizontal
-
-            for (const side of [-1, 1]) {
-                // Leaf / lance shape for each barb
-                const shape = new THREE.Shape();
-                shape.moveTo(0,  baseW * 0.38);
-                shape.bezierCurveTo(
-                    barbLen * 0.22,  baseW * 0.9,
-                    barbLen * 0.62,  baseW * 0.42,
-                    barbLen, 0
-                );
-                shape.bezierCurveTo(
-                    barbLen * 0.62, -baseW * 0.42,
-                    barbLen * 0.22, -baseW * 0.9,
-                    0, -baseW * 0.38
-                );
-                shape.closePath();
-
-                const geo  = new THREE.ShapeGeometry(shape, 8);
-                const mesh = new THREE.Mesh(geo, barbMat);
-
-                // Place at rachis point
-                mesh.position.copy(pt);
-
-                // Orient along rachis tangent so barbs angle with the spine
-                const angle = Math.atan2(tangent.x, tangent.y);
-
-                if (side === 1) {
-                    // Right: points in +X, droops slightly downward
-                    mesh.rotation.z = -angle - droop;
-                } else {
-                    // Left: flipped to -X
-                    mesh.rotation.z = Math.PI - angle + droop;
-                }
-
-                // Z-spread gives real 3-D depth — barbs flare slightly forward/back
-                mesh.rotation.y = side * -0.18;
-
-                barbs.push(mesh);
-            }
-        }
-
-        // Group everything
-        const feather = new THREE.Group();
-        feather.add(rachisMesh);
-        barbs.forEach(b => feather.add(b));
-        scene.add(feather);
-
-        // ── Animation ──────────────────────────────────────────────
-        let clock = 0;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            clock += 0.008;
-
-            // Slow, dignified rotation — one full turn ≈ 35 s
-            feather.rotation.y += 0.0028;
-
-            // Subtle vertical float
-            feather.position.y = Math.sin(clock * 0.38) * 0.07;
-
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // Resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-
-    }());
-
-    // ================================================================
-    //  SCROLL REVEAL
-    // ================================================================
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                revealObserver.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-    </script>
+    <div class="feather-wrap">
+        <img
+            class="feather-img"
+            src="feather_whiteonblack.png"
+            alt="Neverland Ventures"
+        >
+    </div>
 
 </body>
 </html>
