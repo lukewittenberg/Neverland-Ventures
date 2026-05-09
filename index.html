@@ -3,264 +3,314 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Neverland Ventures - A global investment platform focused on real estate and operating businesses engineered around experience and community.">
+    <meta name="description" content="Neverland Ventures — A private investment platform focused on experiential real estate and operating businesses.">
     <title>Neverland Ventures</title>
     <link rel="icon" type="image/png" href="Neverland Ventures (1)Artboard 4@4x.png">
+    <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
 
         body {
-            font-family: Skia, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.7;
-            color: #ffffff;
-            background-color: #000000;
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 60px 30px;
+        /* ── Nav: icons only, top-right ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 22px;
+            padding: 30px 42px;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 100%);
+        }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-link:hover { color: #fff; }
+        .nav-link svg { width: 18px; height: 18px; fill: currentColor; }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #three-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
         }
 
-        header {
-            margin-bottom: 0;
+        /* Scroll cue — descending light */
+        .scroll-cue {
+            position: absolute;
+            bottom: 42px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: cueIn 0.8s 3s ease forwards;
+        }
+        .scroll-cue-line {
+            width: 1px;
+            height: 50px;
+            overflow: hidden;
             position: relative;
         }
-
-        .logo {
-            width: 500px;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 0.5rem;
-            opacity: 1;
-            display: block;
-            filter: invert(1);
+        .scroll-cue-line::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(255,255,255,0.55) 40%,
+                rgba(255,255,255,0.55) 60%,
+                transparent 100%);
+            animation: lineDown 2.2s ease-in-out infinite;
         }
+        @keyframes lineDown {
+            0%   { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+        @keyframes cueIn { to { opacity: 1; } }
 
+        /* ── Content ── */
         .content {
-            font-size: 1.1rem;
-            color: #ffffff;
-            text-align: left;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 130px 40px 110px;
         }
-
         .content p {
-            margin-bottom: 1.8em;
+            font-size: 1.05rem;
+            line-height: 1.95;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 2em;
+            letter-spacing: 0.013em;
         }
+        .content p:last-child { margin-bottom: 0; }
 
-        .content p:last-child {
-            margin-bottom: 0;
+        /* ── Footer ── */
+        footer {
+            border-top: 1px solid rgba(255,255,255,0.07);
+            padding: 60px 40px 56px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
         }
-
-        .feather-logo {
-            width: 150px;
-            height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            display: block;
-            transform-style: preserve-3d;
-            transition: transform 0.1s ease-out;
-        }
-
-        .feather-top {
-            margin-top: 1.8em;
-            margin-bottom: 1.8em;
-        }
-
         .footer-logo {
-            width: 150px;
+            width: 128px;
             height: auto;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 1.8em;
-            margin-bottom: 1em;
-            display: block;
+            opacity: 0.6;
+            transition: opacity 0.3s;
         }
-
+        .footer-logo:hover { opacity: 0.85; }
         .footer-disclaimer {
             text-align: center;
-            font-size: 0.75rem;
-            color: #888888;
-            margin-top: 1.5em;
-            margin-bottom: 2em;
-            line-height: 1.5;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: 0.69rem;
+            color: #3d3d3d;
+            line-height: 1.7;
+            max-width: 460px;
+            letter-spacing: 0.03em;
         }
 
-        /* Horizontal navigation across top */
-        .nav-stack {
-            position: fixed;
-            top: 30px;
-            left: 0;
-            right: 0;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            z-index: 1000;
+        /* ── Scroll reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
         }
-
-        .nav-stack a {
-            color: #FF6B35;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: opacity 0.2s;
-            cursor: pointer;
-            pointer-events: auto;
-            display: inline-block;
-            padding: 5px 10px;
-        }
-
-        .nav-stack a:hover {
-            opacity: 0.7;
-        }
-
-        .nav-stack a.active {
-            font-weight: bold;
-        }
-
-        .nav-icon {
-            width: 24px;
-            height: 24px;
-            fill: #FF6B35;
-            transition: opacity 0.2s;
-        }
-
-        .nav-icon:hover {
-            opacity: 0.7;
-        }
-
-        .icon-link {
-            display: inline-flex;
-            align-items: center;
-            padding: 5px;
-            transform: translateY(2px);
-        }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
 
         @media (max-width: 768px) {
-            .nav-stack {
-                top: 20px;
-                gap: 0;
-                justify-content: space-evenly;
-                padding: 0 10px;
-            }
-
-            .nav-stack a {
-                font-size: 0.85rem;
-                padding: 5px 8px;
-            }
-
-            .nav-icon {
-                width: 20px;
-                height: 20px;
-            }
-
-            .icon-link {
-                padding: 5px;
-            }
-            .container {
-                padding: 40px 20px;
-            }
-
-            .logo {
-                width: 320px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .content {
-                font-size: 1rem;
-                font-family: Skia, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
-            }
-
-            .feather-logo {
-                width: 113px;
-            }
+            nav { padding: 20px 24px; gap: 16px; }
+            .content { padding: 80px 26px 80px; }
+            .content p { font-size: 0.97rem; }
+            footer { padding: 48px 24px 44px; }
         }
-
     </style>
-    <script>
-        let scrollTimeout;
-        window.addEventListener('scroll', function() {
-            const scrollPosition = window.scrollY;
-            const rotation = scrollPosition * 1.5; // Adjust multiplier for sensitivity
-            const feathers = document.querySelectorAll('.feather-top');
-
-            feathers.forEach(function(feather) {
-                feather.style.transform = 'rotateY(' + rotation + 'deg)';
-            });
-
-            // Clear any existing timeout
-            clearTimeout(scrollTimeout);
-
-            // Set a timeout to snap to nearest aligned position when scrolling stops
-            scrollTimeout = setTimeout(function() {
-                const currentRotation = scrollPosition * 1.5;
-                // Find the nearest multiple of 360 (aligned position)
-                const nearestAligned = Math.round(currentRotation / 360) * 360;
-
-                feathers.forEach(function(feather) {
-                    // Add a smooth transition for the snap
-                    feather.style.transition = 'transform 0.5s ease-out';
-                    feather.style.transform = 'rotateY(' + nearestAligned + 'deg)';
-
-                    // Reset to quick transition for next scroll
-                    setTimeout(function() {
-                        feather.style.transition = 'transform 0.1s ease-out';
-                    }, 500);
-                });
-            }, 150); // Wait 150ms after scrolling stops
-        });
-    </script>
 </head>
 <body>
-    <!-- Top-left navigation -->
-    <nav class="nav-stack">
-        <a href="index.html" class="active">Home</a>
-        <a href="track-record.html">Track Record</a>
-        <a href="mailto:info@neverland.vc" class="icon-link" aria-label="Email us">
-            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+
+    <nav>
+        <a href="mailto:info@neverland.vc" class="nav-link" aria-label="Email Neverland Ventures">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
             </svg>
         </a>
-        <a href="https://www.linkedin.com/company/neverlandvc/" target="_blank" rel="noopener noreferrer" class="icon-link" aria-label="Visit our LinkedIn">
-            <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <a href="https://www.linkedin.com/company/neverlandvc/" target="_blank" rel="noopener noreferrer" class="nav-link" aria-label="Neverland Ventures on LinkedIn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                 <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
             </svg>
         </a>
     </nav>
 
-    <div class="container">
-        <header>
-            <img src="Neverland Ventures (1)Artboard 4@4x.png" alt="Neverland Ventures Feather" class="feather-logo feather-top">
-        </header>
+    <section class="hero">
+        <canvas id="three-canvas"></canvas>
+        <div class="scroll-cue" aria-hidden="true">
+            <div class="scroll-cue-line"></div>
+        </div>
+    </section>
 
-        <main class="content">
-            <p>
-                Neverland Ventures ("Neverland") is a private investment platform focused on experiential real estate and operating businesses.
-            </p>
+    <section class="content">
+        <p class="reveal">
+            Neverland Ventures is a private investment platform focused on experiential real estate and operating businesses.
+        </p>
+        <p class="reveal">
+            Our approach is rooted in integrity, creativity, and unconventional thinking. We partner with landowners, municipalities, and government agencies, as well as founders, operators, and brands, to bring community-first, environmentally conscious concepts to life. Our projects are structured flexibly to accommodate a range of ownership and organizational configurations, and typically involve public-private partnerships.
+        </p>
+    </section>
 
-            <p>
-                Our approach is rooted in integrity, creativity, and unconventional thinking. We partner with landowners, municipalities, and government agencies, as well as founders, operators, and brands, to bring community-first, environmentally conscious concepts to life. Our projects are structured flexibly to accommodate a range of ownership and organizational configurations, and typically involve public-private partnerships.
-            </p>
+    <footer>
+        <img src="full logo white.png" alt="Neverland Ventures" class="footer-logo">
+        <div class="footer-disclaimer">
+            &copy; 2026 Neverland Ventures. All rights reserved.<br>
+            Nothing on this website constitutes an offer to sell or a solicitation to buy any securities.
+        </div>
+    </footer>
 
-        </main>
+    <script>
+    (function () {
+        'use strict';
 
-        <footer>
-            <img src="full logo white.png" alt="Neverland Ventures" class="footer-logo">
+        // ── Renderer ──────────────────────────────────────────────
+        const canvas = document.getElementById('three-canvas');
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
 
-            <div class="footer-disclaimer">
-                © 2026 Neverland Ventures. All rights reserved.<br>
-                Nothing on this website constitutes an offer to sell or a solicitation to buy any securities.
-            </div>
-        </footer>
-    </div>
+        // ── Scene + Camera ────────────────────────────────────────
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0, 5.5);
+
+        // ── Three-point lighting ──────────────────────────────────
+        // Key: front-upper-right, warm white
+        const keyLight = new THREE.DirectionalLight(0xffffff, 1.5);
+        keyLight.position.set(2.5, 3.5, 5);
+        scene.add(keyLight);
+
+        // Fill: left side, cool blue tint
+        const fillLight = new THREE.DirectionalLight(0x99aaff, 0.55);
+        fillLight.position.set(-4, 0.5, 2);
+        scene.add(fillLight);
+
+        // Rim: back-bottom, gives a subtle edge glow
+        const rimLight = new THREE.DirectionalLight(0xffffff, 0.4);
+        rimLight.position.set(0, -4, -3);
+        scene.add(rimLight);
+
+        // Ambient: keeps shadow areas from going pure black
+        scene.add(new THREE.AmbientLight(0xffffff, 0.35));
+
+        // ── Feather group ─────────────────────────────────────────
+        // Built once the texture loads; animation runs immediately
+        const featherGroup = new THREE.Group();
+        scene.add(featherGroup);
+
+        // Layer config: multiple thin planes stacked in Z
+        // Creates visible thickness when the feather rotates edge-on
+        const NUM_LAYERS   = 7;
+        const TOTAL_DEPTH  = 0.06;   // total slab thickness (world units)
+
+        new THREE.TextureLoader().load('feather_whiteonblack.png', function (tex) {
+
+            const img    = tex.image;
+            const aspect = (img.naturalWidth  || img.width  || 1)
+                         / (img.naturalHeight || img.height || 1);
+            const H = 3.4;          // height in world units
+            const W = H * aspect;   // width preserves logo proportions
+
+            for (let i = 0; i < NUM_LAYERS; i++) {
+                const t = i / (NUM_LAYERS - 1);          // 0 = front, 1 = back
+                const z = TOTAL_DEPTH / 2 - t * TOTAL_DEPTH;
+
+                // Faces are bright white; interior layers are slightly grey
+                // This simulates edge shading when viewed at an angle
+                const edgeness = Math.abs(t - 0.5) * 2;   // 0 = center, 1 = face
+                const bright   = 0.65 + edgeness * 0.35;
+
+                const mat = new THREE.MeshStandardMaterial({
+                    color:       new THREE.Color(bright, bright, bright),
+                    alphaMap:    tex,      // white = opaque, black = transparent
+                    transparent: true,
+                    opacity:     (i === 0 || i === NUM_LAYERS - 1) ? 0.97 : 0.82,
+                    side:        THREE.DoubleSide,
+                    metalness:   0.20,
+                    roughness:   0.25,
+                    depthWrite:  false,   // prevents z-fighting between layers
+                });
+
+                const mesh = new THREE.Mesh(new THREE.PlaneGeometry(W, H), mat);
+                mesh.position.z  = z;
+                mesh.renderOrder = NUM_LAYERS - i;  // front → back render order
+                featherGroup.add(mesh);
+            }
+
+            // Additive glow halo — gives the feather a subtle luminous aura
+            const glowMat = new THREE.MeshBasicMaterial({
+                color:      0xffffff,
+                alphaMap:   tex,
+                transparent: true,
+                opacity:    0.09,
+                blending:   THREE.AdditiveBlending,
+                depthWrite: false,
+                side:       THREE.DoubleSide,
+            });
+            const glowMesh = new THREE.Mesh(new THREE.PlaneGeometry(W * 1.14, H * 1.14), glowMat);
+            glowMesh.position.z  = -TOTAL_DEPTH / 2 - 0.12;
+            glowMesh.renderOrder = 0;
+            featherGroup.add(glowMesh);
+        });
+
+        // ── Animation loop ────────────────────────────────────────
+        let elapsed = 0;
+
+        (function animate() {
+            requestAnimationFrame(animate);
+            elapsed += 0.01;
+
+            featherGroup.rotation.y += 0.003;                          // ~35 s / revolution
+            featherGroup.position.y  = Math.sin(elapsed * 0.4) * 0.08; // gentle float
+
+            renderer.render(scene, camera);
+        }());
+
+        // ── Responsive resize ─────────────────────────────────────
+        window.addEventListener('resize', function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+    }());
+
+    // ── Scroll reveal ─────────────────────────────────────────────
+    const obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+            if (e.isIntersecting) {
+                e.target.classList.add('visible');
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(function (el) { obs.observe(el); });
+    </script>
+
 </body>
 </html>
