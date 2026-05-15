@@ -6,6 +6,9 @@
     <meta name="description" content="Neverland Ventures — A private investment platform focused on experiential real estate and operating businesses.">
     <title>Neverland Ventures</title>
     <link rel="icon" type="image/png" href="Neverland Ventures (1)Artboard 4@4x.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -55,8 +58,20 @@
             position: fixed;
             inset: 0;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 24px;
+        }
+
+        .wordmark {
+            font-family: 'Cinzel', serif;
+            font-weight: 300;
+            font-size: clamp(1.4rem, 4vw, 3rem);
+            color: #fff;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            user-select: none;
         }
 
         .feather-img {
@@ -93,6 +108,7 @@
             src="feather_titanium.gif"
             alt="Neverland Ventures"
         >
+        <span class="wordmark">Neverland</span>
     </div>
 
 </body>
